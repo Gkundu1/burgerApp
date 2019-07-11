@@ -4,6 +4,7 @@ import ContactStyle from './ContactData.css';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import axios from '../../axios-config';
 import Input from '../../components/UI/Input/Input';
+import { connect } from 'react-redux';
 
 class ContactData extends Component {
     state = {
@@ -85,6 +86,7 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
+                validation:{},
                 valid:true
             }
         },
@@ -101,7 +103,7 @@ class ContactData extends Component {
             formData[formElemIdentifier] = this.state.orderForm[formElemIdentifier].value;
         }
         const orderData = {
-            ingrdients: this.props.ingredients,
+            ingrdients: this.props.burgerIngredients,
             orderPrice: 'Rs. ' + this.props.price,
             orderData: formData
         }
@@ -118,6 +120,9 @@ class ContactData extends Component {
 
     checkValidity = (value, rules) => {
         let isValid = true;
+        if(!rules){
+            return true;
+        }
         if (rules.required) {
             isValid = value.trim() !== '' && isValid
         }
@@ -186,4 +191,11 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProps=(state)=>{
+    return{
+        burgerIngredients:state.ingredients,
+        price:state.totalPrice
+    }
+};
+
+export default connect(mapStateToProps)(ContactData);
