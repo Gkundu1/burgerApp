@@ -1,0 +1,22 @@
+.Auth{
+    margin:20px auto;
+    width:100%;
+    text-align: center;
+    box-shadow:0 2px 3px 4px  rgb(153, 147, 150);
+    padding:5px;
+    box-sizing: border-box;
+}
+
+@media (min-width:600px){
+    .Auth{
+        width: 500px;
+    }
+}
+
+/* .ContactData input{
+    display: block;
+    align-content: center;
+    color:black;
+    padding:5px;
+    margin:2px;
+} */

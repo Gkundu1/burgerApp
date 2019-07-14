@@ -2,8 +2,15 @@ export {
     addIngredient,
     removeIngredient,
     initIngredientAsync
-} from './burgerBuilder.js';
+} from './burgerBuilder';
 
 export {
+    purchaseBurgerAsync,
+    purchaseInit,
+    fetchOrderAsync
+} from './order';
 
-} from './order.js';
+export {
+    authenticateAsync
+
+} from './auth';
