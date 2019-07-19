@@ -11,6 +11,8 @@ export {
 } from './order';
 
 export {
-    authenticateAsync
-
+    authenticateAsync,
+    logout,
+    seAuthRedirectPath,
+    authCheckState
 } from './auth';

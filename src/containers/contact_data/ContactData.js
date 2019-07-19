@@ -106,10 +106,11 @@ class ContactData extends Component {
         const orderData = {
             ingrdients: this.props.burgerIngredients,
             orderPrice: 'Rs. ' + this.props.price,
-            orderData: formData
+            orderData: formData,
+            userdId:this.props.userId
         }
 
-        this.props.onOrderBurger(orderData);
+        this.props.onOrderBurger(orderData,this.props.token);
 
         // axios.post('/orders.json', orderData)
         //     .then(response => {
@@ -135,6 +136,15 @@ class ContactData extends Component {
         }
         if (rules.maxlength) {
             isValid = value.length <= rules.maxlength && isValid;
+        }
+        if (rules.isEmail) {   
+            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+            isValid = pattern.test(value) && isValid
+        }
+    
+        if (rules.isNumeric) {
+            const pattern = /^\d+$/;
+            isValid = pattern.test(value) && isValid
         }
         return isValid;
     }
@@ -199,14 +209,16 @@ const mapStateToProps=(state)=>{
     return{
         burgerIngredients:state.burgerBuilder.ingredients,
         price:state.burgerBuilder.totalPrice,
-        loading:state.order.loading
+        loading:state.order.loading,
+        token:state.auth.token,
+        userId:state.auth.userId
     }
 };
 
 const mapDispatchToProps=(dispatch)=>
 {
     return{
-        onOrderBurger:(orderData)=>dispatch(actions.purchaseBurgerAsync(orderData))
+        onOrderBurger:(orderData,token)=>dispatch(actions.purchaseBurgerAsync(orderData,token))
     };
     
 };

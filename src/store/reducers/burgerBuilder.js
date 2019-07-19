@@ -4,7 +4,8 @@ import { updateObject } from "../utility";
 const initialState = {
   ingredients: null,
   totalPrice: 4,
-  error: false
+  error: false,
+  burgerReady:false
 };
 
 const INGREDIENT_PRICES = {
@@ -29,7 +30,8 @@ const reducer = (state = initialState, action) => {
                 meat: action.ingredients.meat
               },
               totalPrice: 4,
-              error: false
+              error: false,
+              burgerReady:false
         });
     case actionType.FETCHINGREDIENTFAILED:
         return updateObject(state,{
@@ -42,12 +44,13 @@ const reducer = (state = initialState, action) => {
 
 const addIngredientToBurger = (state, action) => {
   const updatedIngredient = {
-    [action.ingredientName]: state.ingredients[action.ingredientName] + 1
+    [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
   };
   const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
   const updatedState = {
     ingredients: updatedIngredients,
-    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
+    totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName],
+    burgerReady:true
   };
   return updateObject(state,updatedState);
 };
@@ -59,7 +62,8 @@ const removeIngredientFromBurger = (state, action) => {
       const updatedIngredients = updateObject(state.ingredients, updatedIngredient);
       const updatedState = {
         ingredients: updatedIngredients,
-        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName],
+        burgerReady:true
       };
       return updateObject(state,updatedState);
 };

@@ -17,7 +17,7 @@ const INGREDIENT_PRICES = {
     Bacon: 5.5
 };
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
 
     state = {
         purchasing: false,
@@ -26,7 +26,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        console.log('[BurgerBuilder] routing props',this.props);
+        //console.log('[BurgerBuilder] routing props',this.props);
         this.props.onInitIngredientsHandler();
     }
 
@@ -45,7 +45,14 @@ class BurgerBuilder extends Component {
     }
 
     purchasedHandler = () => {
-        this.setState({ purchasing: true });
+        if(this.props.isLogin)
+        {
+            this.setState({ purchasing: true });
+        }
+        else{
+            this.props.onSetAuthRedirectPathHandler('/checkout');
+            this.props.history.push('/auth');
+        }
     }
 
     updatePurchaseStateHandler = (ingredients) => {
@@ -130,7 +137,9 @@ class BurgerBuilder extends Component {
                         disabled={disableInfo}
                         price={this.props.burgerPrice}
                         purchaseable={this.updatePurchaseStateHandler(this.props.burgerIngredients)}
-                        checkout={this.purchasedHandler} />
+                        checkout={this.purchasedHandler}
+                        isAuth={this.props.isLogin}
+                         />
                 </Aux>
             );
 
@@ -158,7 +167,8 @@ const mapStateToProps=(state)=>{
     return{
         burgerIngredients:state.burgerBuilder.ingredients,
         burgerPrice:state.burgerBuilder.totalPrice,
-        error:state.burgerBuilder.error
+        error:state.burgerBuilder.error,
+        isLogin:state.auth.token!==null
     };
 };
 
@@ -167,7 +177,8 @@ const mapDispatchToProps=(dispatch)=>{
         onIngredientAddedHandler:(igName)=>dispatch(actions.addIngredient(igName)),
         onIngredientRemovedHandler:(igName)=>dispatch(actions.removeIngredient(igName)),
         onInitIngredientsHandler:()=>dispatch(actions.initIngredientAsync()),
-        onInitPurchasedHandler:()=>dispatch(actions.purchaseInit())
+        onInitPurchasedHandler:()=>dispatch(actions.purchaseInit()),
+        onSetAuthRedirectPathHandler:(path)=>dispatch(actions.seAuthRedirectPath(path))
     };
 };
 

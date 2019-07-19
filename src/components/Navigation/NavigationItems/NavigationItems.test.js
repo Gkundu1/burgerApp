@@ -1,0 +1,28 @@
+import React from 'react'
+
+
+import {configure ,shallow} from 'enzyme';
+import EnzymeAdapter from 'enzyme-adapter-react-16';
+import NavigationItems from './NavigationItems';
+import NavigationItem from '../NavigationItems/NavigationItem/NavigationItem';
+
+configure({adapter: new EnzymeAdapter()});
+
+describe('<NavigationItems/>',()=>{
+    let wrapper;
+    beforeEach(()=>{
+        wrapper = shallow(<NavigationItems />)
+    });
+
+    it('should render two <NavigationItem/> elements if not authenticated',()=>{
+        expect(wrapper.find(NavigationItem)).toHaveLength(2);
+    });
+    it('should render three <NavigationItem/> elements if authenticated',()=>{
+        wrapper.setProps({auth:true});
+        expect(wrapper.find(NavigationItem)).toHaveLength(3);
+    });
+    it('should render one <NavigationItem/> elements if authenticated',()=>{
+        wrapper.setProps({auth:true});
+        expect(wrapper.contains(<NavigationItem link="/logout">Logout</NavigationItem>)).toEqual(true);
+    });
+});

@@ -50,7 +50,7 @@ const input = (props) => {
                 />;
     }
     return (
-        <div className={inputstyle.Input}>
+        <div  className={inputstyle.Input}>
             <label className={inputstyle.Label}>{props.label}</label>
             {inputElement}
             {validationError}

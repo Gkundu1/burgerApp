@@ -1,0 +1,7 @@
+Deploying Application
+
+1.Build the application using command npm run build.
+2.Firebase Login.
+3.Firebase Init.
+4.Select the build folder when asked which folder to upload.
+5.FIrebase Deploy.  
