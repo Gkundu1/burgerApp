@@ -2,7 +2,7 @@
   "rules": {
       "ingredients":{
          ".read": true,
-    			".write": true,
+    			".write": true
       },
       "orders":{
         ".read":"auth!=null",

@@ -88,8 +88,8 @@ class ContactData extends Component {
                     ]
                 },
                 value: 'fastest',
-                validation:{},
-                valid:true
+                validation: {},
+                valid: true
             }
         },
         isFormValid: false
@@ -107,10 +107,10 @@ class ContactData extends Component {
             ingrdients: this.props.burgerIngredients,
             orderPrice: 'Rs. ' + this.props.price,
             orderData: formData,
-            userdId:this.props.userId
+            userdId: this.props.userId
         }
 
-        this.props.onOrderBurger(orderData,this.props.token);
+        this.props.onOrderBurger(orderData, this.props.token);
 
         // axios.post('/orders.json', orderData)
         //     .then(response => {
@@ -125,7 +125,7 @@ class ContactData extends Component {
 
     checkValidity = (value, rules) => {
         let isValid = true;
-        if(!rules){
+        if (!rules) {
             return true;
         }
         if (rules.required) {
@@ -137,11 +137,11 @@ class ContactData extends Component {
         if (rules.maxlength) {
             isValid = value.length <= rules.maxlength && isValid;
         }
-        if (rules.isEmail) {   
+        if (rules.isEmail) {
             const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
             isValid = pattern.test(value) && isValid
         }
-    
+
         if (rules.isNumeric) {
             const pattern = /^\d+$/;
             isValid = pattern.test(value) && isValid
@@ -205,23 +205,22 @@ class ContactData extends Component {
     }
 }
 
-const mapStateToProps=(state)=>{
-    return{
-        burgerIngredients:state.burgerBuilder.ingredients,
-        price:state.burgerBuilder.totalPrice,
-        loading:state.order.loading,
-        token:state.auth.token,
-        userId:state.auth.userId
+const mapStateToProps = (state) => {
+    return {
+        burgerIngredients: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        loading: state.order.loading,
+        token: state.auth.token,
+        userId: state.auth.userId
     }
 };
 
-const mapDispatchToProps=(dispatch)=>
-{
-    return{
-        onOrderBurger:(orderData,token)=>dispatch(actions.purchaseBurgerAsync(orderData,token))
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onOrderBurger: (orderData, token) => dispatch(actions.purchaseBurgerAsync(orderData, token))
     };
-    
+
 };
 
 
-export default connect(mapStateToProps,mapDispatchToProps)(withErrorHandler(ContactData,axios));
+export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(ContactData, axios));

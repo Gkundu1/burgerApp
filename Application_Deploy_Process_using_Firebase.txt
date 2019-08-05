@@ -4,4 +4,6 @@ Deploying Application
 2.Firebase Login.
 3.Firebase Init.
 4.Select the build folder when asked which folder to upload.
-5.FIrebase Deploy.  
+5.Firebase Deploy.  
+
+Hosting URL: https://react-burgerapp-13818.firebaseapp.com
